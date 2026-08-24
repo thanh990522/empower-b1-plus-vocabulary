@@ -1,19 +1,112 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#0878d1" />
-    <meta name="description" content="Interactive vocabulary course for Empower B1+." />
-    <title>Empower B1+ Vocabulary</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <main id="app" class="starter" aria-live="polite">
-      <p class="eyebrow">Viet Anh School</p>
-      <h1>Empower B1+ Vocabulary</h1>
-      <p>The project is ready for course content.</p>
-    </main>
-    <script type="module" src="app.js"></script>
-  </body>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#103a5d">
+  <meta name="description" content="Interactive vocabulary course for Empower Second Edition B1+, organised by unit and lesson with extra focus on Reading.">
+  <title>Empower Second Edition B1+ Vocabulary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#course">Đi đến nội dung học</a>
+
+  <header class="hero">
+    <nav class="topbar" aria-label="Thông tin khóa học">
+      <a class="brand" href="#unit-1" aria-label="Empower B1+ Vocabulary">
+        <span class="brand-mark" aria-hidden="true">E<span>+</span></span>
+        <span><strong>EMPOWER</strong><small>SECOND EDITION · B1+</small></span>
+      </a>
+      <div class="top-pills" aria-label="Thống kê khóa học">
+        <span><b id="top-entry-count">—</b> mục từ</span>
+        <span><b id="top-reading-count">—</b> từ Reading</span>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">INTERACTIVE VOCABULARY COURSE</p>
+        <h1>Empower Second Edition <em>B1+</em></h1>
+        <p class="hero-lead">Từ vựng, cụm từ và collocations thiết yếu theo từng Unit — tập trung sâu vào ngôn ngữ trong các bài Reading.</p>
+        <div class="hero-stats">
+          <div><strong>10</strong><span>Units</span></div>
+          <div><strong>50</strong><span>Sections</span></div>
+          <div><strong id="hero-advanced-count">—</strong><span>B2–C1</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="book-card">
+          <span class="book-kicker">CAMBRIDGE ENGLISH</span>
+          <b>EMPOWER</b>
+          <strong>B1<span>+</span></strong>
+          <small>VOCABULARY</small>
+        </div>
+        <span class="orbit orbit-one">READ</span>
+        <span class="orbit orbit-two">LISTEN</span>
+        <span class="orbit orbit-three">SPEAK</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="course" class="course-shell">
+    <section class="control-panel" aria-label="Chọn nội dung học">
+      <div class="control-grid">
+        <label class="select-wrap">
+          <span>Chọn Unit</span>
+          <select id="unit-select" aria-label="Chọn Unit"></select>
+        </label>
+        <label class="search-wrap">
+          <span>Tìm trong Unit</span>
+          <span class="search-field">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m21 21-4.3-4.3m2.3-5.2A7.5 7.5 0 1 1 4 11.5a7.5 7.5 0 0 1 15 0Z"/></svg>
+            <input id="search-input" type="search" placeholder="Từ tiếng Anh hoặc nghĩa Việt…" autocomplete="off">
+            <button id="clear-search" type="button" aria-label="Xóa tìm kiếm">×</button>
+          </span>
+        </label>
+        <div class="progress-card">
+          <div><span>Tiến độ Unit</span><strong id="progress-label">0%</strong></div>
+          <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+          <small id="progress-detail">0 / 0 từ đã thuộc</small>
+        </div>
+      </div>
+    </section>
+
+    <section class="unit-intro" aria-live="polite">
+      <div>
+        <p id="unit-kicker" class="eyebrow dark">UNIT 1</p>
+        <h2 id="unit-title">Talk</h2>
+        <p id="unit-subtitle"></p>
+      </div>
+      <div id="unit-badges" class="unit-badges"></div>
+    </section>
+
+    <div id="section-tabs" class="section-tabs" role="tablist" aria-label="Các phần từ vựng"></div>
+
+    <section class="study-panel">
+      <div class="study-toolbar">
+        <div>
+          <p id="section-source" class="source-line"></p>
+          <h3 id="section-title"></h3>
+        </div>
+        <div class="mode-tabs" role="tablist" aria-label="Chế độ học">
+          <button class="mode-tab active" data-mode="learn" type="button">☰ Học từ</button>
+          <button class="mode-tab" data-mode="flashcards" type="button">▣ Flashcards</button>
+          <button class="mode-tab" data-mode="matching" type="button">⌁ Matching</button>
+        </div>
+      </div>
+      <div id="mode-content"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><span class="brand-mark small">E<span>+</span></span><div><strong>Empower Second Edition B1+</strong><small>Interactive Vocabulary Course</small></div></div>
+    <p>Dữ liệu được rà soát theo Student’s Book và tài liệu hướng dẫn kèm theo.</p>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
 </html>
