@@ -1,4 +1,4 @@
-import course from "./data.js";
+import course from "./data.js?v=2";
 
 const STORAGE_KEY = "empower-b1-plus-progress-v1";
 const CAMBRIDGE_AUDIO_BASE = "https://dictionary.cambridge.org/media/english/us_pron/";
