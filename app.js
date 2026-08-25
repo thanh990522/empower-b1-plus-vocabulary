@@ -102,7 +102,6 @@ function showToast(message) {
 function renderStats() {
   document.querySelector("#top-entry-count").textContent = course.stats.entries.toLocaleString("vi-VN");
   document.querySelector("#top-reading-count").textContent = course.stats.reading.toLocaleString("vi-VN");
-  document.querySelector("#hero-advanced-count").textContent = course.stats.advanced.toLocaleString("vi-VN");
 }
 
 function renderUnitSelector() {
@@ -116,11 +115,10 @@ function renderUnitIntro() {
   const unit = currentUnit();
   const words = unitWords(unit);
   const reading = words.filter((word) => word.sectionLabel.startsWith("Reading")).length;
-  const advanced = words.filter((word) => word.level !== "B1+").length;
   els.unitKicker.textContent = `UNIT ${unit.number}`;
   els.unitTitle.textContent = unit.title;
   els.unitSubtitle.textContent = unit.subtitle;
-  els.unitBadges.innerHTML = `<span>${words.length} mục từ</span><span>${reading} từ Reading</span><span>${advanced} từ B2–C1</span>`;
+  els.unitBadges.innerHTML = `<span>${words.length} mục từ</span><span>${reading} từ Reading</span>`;
   document.title = `Unit ${unit.number}: ${unit.title} | Empower Second Edition B1+`;
 }
 
@@ -165,10 +163,6 @@ function renderModeTabs() {
   });
 }
 
-function advancedClass(level) {
-  return level === "B1+" ? "" : "advanced";
-}
-
 function sourceShort(source) {
   return source.replace(/ \(SB /, " · SB ").replace(/\)$/, "");
 }
@@ -185,7 +179,7 @@ function renderLearn() {
     : `<div class="result-note"><span><strong>${words.length}</strong> mục · Nhấn 🔊 để nghe và ✓ để đánh dấu đã thuộc</span><span>${escapeHtml(currentSection().source)}</span></div>`;
 
   els.modeContent.innerHTML = `${note}<div class="table-scroll"><table class="vocab-table">
-    <thead><tr><th>No.</th><th>English word / phrase</th><th>IPA (US)</th><th>Type & level</th><th>Vietnamese meaning</th><th>Actions</th></tr></thead>
+    <thead><tr><th>No.</th><th>English word / phrase</th><th>IPA (US)</th><th>Type</th><th>Vietnamese meaning</th><th>Actions</th></tr></thead>
     <tbody>${words.map((word, index) => {
       const section = state.query ? currentUnit().sections.find((item) => item.id === word.sectionId) : currentSection();
       const learned = state.learned.has(wordKey(word, section));
@@ -193,7 +187,7 @@ function renderLearn() {
         <td>${index + 1}</td>
         <td class="word-cell"><strong>${escapeHtml(word.word)}</strong><small>${escapeHtml(word.band)}</small></td>
         <td><span class="ipa">${escapeHtml(word.ipa)}</span></td>
-        <td><span class="type-label">${escapeHtml(word.type)}</span><span class="level ${advancedClass(word.level)}">${escapeHtml(word.level)}</span></td>
+        <td><span class="type-label">${escapeHtml(word.type)}</span></td>
         <td><span class="meaning">${escapeHtml(word.meaning)}</span><small class="source-mini">${escapeHtml(sourceShort(word.sectionSource || word.source))}</small></td>
         <td><div class="actions"><button class="icon-btn" type="button" data-action="audio" data-word="${escapeHtml(word.word)}" aria-label="Nghe ${escapeHtml(word.word)}">🔊</button><button class="icon-btn ${learned ? "learned" : ""}" type="button" data-action="learn" data-key="${escapeHtml(wordKey(word, section))}" aria-label="Đánh dấu đã thuộc">✓</button></div></td>
       </tr>`;
@@ -223,7 +217,7 @@ function renderFlashcards() {
     <div class="flash-meta"><span>Thẻ ${state.flashIndex + 1} / ${state.flashOrder.length}</span><span>${escapeHtml(currentSection().label)}</span></div>
     <button class="flashcard ${state.flashFlipped ? "flipped" : ""}" type="button" data-action="flip" aria-label="Lật thẻ">
       <span class="flash-inner">
-        <span class="flash-face flash-front"><span class="flash-level">${escapeHtml(word.level)} · ${escapeHtml(word.type)}</span><strong class="flash-word">${escapeHtml(word.word)}</strong><span class="flash-ipa">${escapeHtml(word.ipa)}</span><small class="flash-hint">Chạm để xem nghĩa tiếng Việt</small></span>
+        <span class="flash-face flash-front"><span class="flash-level">${escapeHtml(word.type)}</span><strong class="flash-word">${escapeHtml(word.word)}</strong><span class="flash-ipa">${escapeHtml(word.ipa)}</span><small class="flash-hint">Chạm để xem nghĩa tiếng Việt</small></span>
         <span class="flash-face flash-back"><span>${word.icon}</span><strong class="flash-meaning">${escapeHtml(word.meaning)}</strong><span class="flash-source">${escapeHtml(sourceShort(word.source))}</span></span>
       </span>
     </button>
